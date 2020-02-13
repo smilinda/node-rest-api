@@ -6,4 +6,4 @@ const port = 3000;
 
 //Create server with exported express app
 const server = http.createServer(app);
-server.listen(port);
+server.listen(process.env.port);
