@@ -1,12 +1,6 @@
-import express from "express";
-import randomLocation from "random-location";
-import { v4 as uuidv4 } from 'uuid';
-
-const router = express.Router();
-
 /**
- * Get Mock data from known city
- */
+* Get Mock data from known city
+*/
 const getMockCityMapLocations = () => {
     const mapLocations = [
         {
@@ -14,7 +8,7 @@ const getMockCityMapLocations = () => {
                 latitude: 6.9357122,
                 longitude: 79.8500395
             },
-            radius: 500
+            radius: 300
         },
         {
             mapArea: {
@@ -83,36 +77,4 @@ const getMockCityMapLocations = () => {
     return mapLocations;
 };
 
-/**
- * Generate mock object fot given cities.
- * nimbus/mock/geolocation/
- */
-router.get("/", (req, res, next) => {
-    const mapLocations = getMockCityMapLocations();
-    let response = [];
-
-    mapLocations.forEach(mapLocation => {
-        for (let index = 0; index < 50; ++index) {
-            const randomPoint = randomLocation.randomCirclePoint(mapLocation.mapArea, mapLocation.radius);
-            const bookingRequestXid = uuidv4();
-            const passengerXid = uuidv4();
-
-            let responseModel = {
-                "bookingMode": "Mock Booking Mode",
-                bookingRequestXid,
-                "geoPoint": {
-                    "lat": randomPoint.latitude,
-                    "lon": randomPoint.longitude
-                },
-                passengerXid,
-                "serviceType": "Mock Service Type",
-                "vehicleType": "Mock Vehicle"
-            };
-            response.push(responseModel);
-        }
-    });
-
-    res.status(200).json(response);
-});
-
-module.exports = router;
+module.exports = getMockCityMapLocations;

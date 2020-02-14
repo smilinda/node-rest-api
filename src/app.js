@@ -2,8 +2,7 @@ import express from "express";
 import bodyparser from "body-parser";
 import cors from "cors";
 import http from "http";
-
-import geocode from "./api/geocode";
+import geoservice from "./api/geo.location.service";
 
 const app = express();
 
@@ -11,7 +10,7 @@ app.use(cors());
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false }));
 
-app.use("/nimbus/mock/geolocation", geocode);
+app.use("/nimbus/mock/geolocation", geoservice);
 
 app.use((req, res, next) => {
     const err = new Error("Not Found");
